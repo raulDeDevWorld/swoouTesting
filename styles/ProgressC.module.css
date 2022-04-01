@@ -1,0 +1,92 @@
+.progressbar {
+    position: relative;
+    width: 30vw;
+    min-width: 100px;
+    max-width: 150px;
+    height: 30vw;
+    min-height: 100px;
+    max-height: 150px;
+    background-color: #00679e;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px;
+    margin-bottom: 5px;
+  }
+  .text {
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: orange;
+  }
+  .halfCircle,
+  .halfCircleTop {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    transform-origin: 100% 50%;
+    background-color: red;
+  }
+  .halfCircle {
+    position: absolute;
+    margin: auto;
+    background-color: #FE0000;
+  }
+  .halfCircleTop {
+    position: absolute;
+    background-color: #00679e;
+  }
+  .progressbar .halfCircle:nth-child(1) {
+    animation-name: animationOne;
+    animation-duration: 1s;
+  
+  }
+  .progressbar .halfCircle:nth-child(2) {
+    animation-name: animationTwo;
+    animation-duration: 1s;
+  }
+  
+  .progressbar .halfCircleTop {
+    opacity: 0; 
+    transition: opacity 0s 1s;
+  }
+  
+  @keyframes animationOne {
+  50% {  transform: rotate(180deg); 
+    transition: transform 1s linear; }
+  }
+  @keyframes animationTwo {
+    50% {    transform: rotate(360deg); 
+      transition: transform 2s linear; 
+     }
+  }
+  @keyframes animationTwo {
+    50% {      opacity: 0; 
+      transition: opacity 0s 1s; 
+     }
+  }
+  .progressbarCircle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 27vw;
+    min-width: 90px;
+    max-width: 140px;
+    height: 27vw;
+    min-height: 90px;
+    max-height: 140px;
+    background-color: #000000;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 2rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  
+ 

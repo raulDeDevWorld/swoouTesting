@@ -1,0 +1,115 @@
+
+.container {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url(../public/bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom; }
+.robot {
+  width: 250px;
+  height: 130px;
+  object-fit:cover;
+  object-position: top;
+  margin: 15px;
+  margin-top: 10px;
+}
+.title {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  color: aliceblue;
+}
+.subtitle {
+  display: block;
+  text-align: center;
+  display: inline-block;
+  margin: 8px 0;
+  color: aliceblue;
+  width: 100%;
+}
+.left {
+  text-align: left;
+}
+.orange {
+  color: #1eff00;
+}
+.black {
+  color: black;
+}
+.buttons {
+  margin: 10px 0;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-evenly;
+ 
+}
+
+.x {
+  position: absolute;
+  padding: 10px 15px;
+  border-radius: 15px 10px;
+  right: -9px;
+  top: -15px;
+  background-color: black;
+  color: orange;
+  cursor: pointer;
+}
+.red {
+  color: red;
+}
+
+.gridContainer {
+  background-color: black;
+  padding: 20px 10px;
+  margin: 15px 0;
+  border-radius: 10px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.form {
+  position: relative;
+  display: flex;
+   margin: 20px; 
+}
+
+
+.modalInput {
+  border: 1px solid white;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+.textModal {
+  background-color: black;
+  color: orange;
+  padding: 5px;
+  width: 97%;
+  margin-top: 20px;
+}
+.modalButton {
+  border: none;
+  border: 1px solid black;
+  text-align: center;
+  color: orange;
+  background-color: rgba(9, 255, 0, 0);
+  border-radius: 5px 5px;
+}
+.perfil {
+  width: 250px;
+  height: 130px;
+  object-fit:cover;
+  object-position: top;
+}

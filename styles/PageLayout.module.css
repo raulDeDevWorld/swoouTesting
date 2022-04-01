@@ -1,0 +1,113 @@
+.container {
+    position: absolute;
+    height: 100vh;
+    min-height: 550px;
+    width: 100vw;
+    /* background: linear-gradient(to bottom, #4393BE,#4393BE, #003450); */
+    background-image: url(../public/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left top;
+    
+}
+.mainContainer {
+    background-image: linear-gradient(#015380ce,#4393BE, #B1D9F0);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    
+    padding: 10px;
+    height: 70px;
+    min-height: 450px;
+    width: 100vw;
+    min-width: 300px;
+    max-width: 320px;
+    border-radius: 10px;
+  
+    overflow: hidden;
+}
+.mainContainerEspecial {
+    background-color: aliceblue;   
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+        
+        padding: 22px;
+        height: 550px;
+        width: 100vw;
+        min-width: 280px;
+        max-width: 300px;
+        border-radius: 10px;
+      
+     
+    }
+
+.vector {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 70px;
+    width: 100vw;
+    /* background-image: url(../public/vector-bottom.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left bottom; */
+    z-index: 100;    
+    pointer-events: none;
+}
+.button {
+    position: absolute;
+    right: 10px;
+    bottom: 40px;
+    cursor: pointer;
+    font-size: 12px;
+    color: white;
+    padding: 5px 1px;
+    background-color: rgba(0, 52, 80, .7);
+    background-image: url(../public/whatsapp.svg);
+    background-repeat: no-repeat;
+    background-position: 5px 3px;
+    background-size: 18px;
+    width: 120px;
+    border: 2px solid #d6d6d6;
+    border-radius: 5px;    
+    pointer-events: auto;
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    box-sizing: border-box;
+  
+    width: 100%;
+    background-color: black;
+    height: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    text-align: center;
+    z-index: 10000;
+  }
+@media (max-height: 550px) { 
+    .vector {
+        position: absolute;
+        z-index: 0;
+    }
+}
+@media (min-height: 360px) { 
+    .mainContainer {
+        height: 430px;
+    }
+}

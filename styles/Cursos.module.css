@@ -1,0 +1,32 @@
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    
+    padding: 0;
+    height: 90%;
+    width: 280px;
+
+}
+.robot {
+    width: 250px;
+}
+.card {
+    background-color: black;
+    padding: 1px;
+    border-radius: 5px;
+}
+.subtitle {
+    color: rgb(0, 255, 106);
+    font-size: 16;
+    font-weight: lighter;
+}
+.paragraph {
+    color: orange;
+    font-size: 16;
+    font-weight: lighter;
+}

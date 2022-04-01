@@ -1,0 +1,314 @@
+
+.main {
+  background-image: url(../public/bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;   min-height: 100vh;
+}
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+}
+.perfil {
+    width: 250px;
+    height: 130px;
+    object-fit:cover;
+    object-position: top;
+}
+.greeting {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    line-height: 20px;
+    width: 90%;
+}
+.containerMap {
+    background-color: black;
+    width: 90%;
+    max-width: 800px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #1eff00;
+    min-height: 100px;
+}
+.item {
+    position: relative;
+    font-size: 16px;
+    text-align: left;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    color: #1eff00;
+    font-size: 14px;
+ 
+    
+    
+}
+.red {
+  color : red;
+  font-size: 14px;
+}
+.green {
+  color: #1eff00;
+  font-size: 14px;
+}
+.blue {
+  color:rgb(49, 223, 253);
+  font-size: 14px;
+}
+.reset {
+  position: absolute;
+  right: 18px;
+  top: 0;
+  color:rgb(49, 223, 253);
+  cursor: pointer;
+}
+.circleRed {
+  font-size: 14px;
+  margin-right: 10px;
+  display: inline-block;
+  border-radius: 10px;
+  height: 10px;
+  width: 10px;
+  background-color : red;
+}
+.circleGreen {
+  font-size: 14px;
+  margin-right: 10px;
+  display: inline-block;
+  border-radius: 10px;
+  height: 10px;
+  width: 10px;
+  background-color: #1eff00;
+}
+.circleBlue {
+  position: absolute;
+  font-size: 14px;
+  margin-right: 10px;
+  display: inline-block;
+  border-radius: 10px;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(49, 223, 253);
+}
+.circleLead {
+  position: absolute;
+  margin: 0;
+  right: 0;
+  background-color: rgb(145, 145, 145);
+}
+.circleBlueContainer {
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  display: inline-block;
+  border-radius: 10px;
+  height: 12px;
+  width: 20px;
+  background-color: rgb(51, 51, 51);
+  border: 1px solid rgb(49, 223, 253);
+}
+.circleLeadContainer {
+  border: 1px solid rgb(145, 145, 145);
+}
+.blueContainer {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.progressPorcent {
+    position: absolute;
+    top: 0;
+    right: 45px;
+    width: 47%;
+    height: 15px;
+    background-color: aliceblue;
+    border-radius: 15px;
+    overflow: hidden;
+    color: black;
+    text-align: center;
+}
+.porcent {
+    text-align: center;
+    color: black;
+  
+}
+.buttonBack {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: red;
+    font-size: 16px;
+    text-align: center;
+    width: 95%;
+   
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+.viewGrid {
+    display: none;
+    width: 100%;
+}
+.visibility {
+    display: inline-block;
+}
+.delete {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 18px;
+    color: red;
+
+
+}
+.grid {
+position: relative;
+right: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+  }
+
+.orange {
+  font-size: 14px;
+  color:rgb(49, 223, 253);
+}
+
+
+
+
+
+
+
+
+
+
+  .modalContainer {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.616);
+
+  }
+  .true {
+    top: 0;
+  }
+  .contBlue {
+    background-color: aliceblue;
+    position: absolute;
+    max-width: 400px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 350px;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+  }
+ 
+  .textModal {
+    background-color: black;
+    color: orange;
+    padding: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+  .modalButton {
+    border: none;
+    border: 1px solid black;
+    text-align: center;
+    color: black;
+    background-color: orange;
+    border-radius: 5px 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: .8s;
+  }
+  .modalButton:hover {
+    color: orange;
+    background-color: black;
+  }
+  .modalBoot {
+    width: 250px;
+    height: 130px;
+    object-fit:cover;
+    object-position: top;
+  }
+  .x {
+    position: absolute;
+    padding: 10px 15px;
+    border-radius: 15px 10px;
+    right: -15px;
+    top: -15px;
+    background-color: black;
+    color: orange;
+    cursor: pointer;
+  }
+
+
+
+
+
+
+
+
+  .boxSelect {
+    text-align: center;
+    position: relative;
+    height: 20px;
+    width: 100%;
+  }
+  .textReset {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: block;
+    color: black;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 14px;
+  }
+  .space {
+    position: absolute;
+    right: 80px;
+  }
+ 
+ 
+@media (orientation: landscape) and (min-width: 600px) { 
+    .progressPorcent {
+        width: 60%;
+    }
+ }
+
+

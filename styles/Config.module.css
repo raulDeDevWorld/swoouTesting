@@ -1,0 +1,232 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+    height: 100%;
+    width: 100%;
+}
+.robot {
+    width: 250px;
+    height: 110px;
+    object-fit:cover;
+    object-position: center;
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.card {
+    background-color: black;
+    padding: 1px;
+    border-radius: 5px;
+}
+.title {
+  color: white;
+  font-size: 14px;
+}
+.subtitle {
+    color: rgb(0, 255, 106);
+    font-size: 16;
+    font-weight: lighter;
+}
+.orange {
+    color: orange;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+
+/* avatars*/
+
+.avatarsContainer {
+    margin-top: 10px;
+    height: auto;
+  }
+  .avatarb1 {
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    margin: 2px 20px 2px 17px;
+  }
+  .avatarb2 {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    margin: 2px 20px 2px 7px;
+  }
+  .avatarg1 {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin: 2px 20px 2px 20px;
+  }
+  .avatarg2 {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin: 2px 20px 2px 20px;
+  }
+
+  .right {
+  animation: rotar 1.5s alternate;
+  filter: saturate(1.5);
+  outline: 1px dashed rgb(255, 123, 0);
+  border-radius: 5px;
+  }
+ 
+  .avatarb1:hover {
+    filter: saturate(1.5);
+  }
+  .avatarb2:hover {
+    filter: saturate(1.5);
+  }
+  .avatarg1:hover {
+    filter: saturate(1.5);
+  }
+  .avatarg2:hover {
+    filter: saturate(1.5);
+  }
+  @keyframes rotar{
+    0% {transform: rotate(0deg);}
+    20% {transform: rotate(10deg);}
+    40% {transform: rotate(-15deg);}
+    60% {transform: rotate(15deg);}
+    80% {transform: rotate(-10deg);}
+    100% {transform: rotate(0deg);}
+  }
+  
+  .buttonsContainer {
+    margin-top: 15px;
+  }
+
+
+
+
+
+
+
+
+
+
+  .form {
+    margin-top: 10px;
+  }
+  .input {
+    border: none;
+    border-bottom: 1px solid black;
+    width: 90%;
+    background-color: transparent;
+    margin-bottom: 7px;
+  }
+
+
+
+
+
+
+
+  .modalContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -1000px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.616);
+
+  }
+  .true {
+    top: 0;
+  }
+  .contBlue {
+    background-color: aliceblue;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 350px;
+    border-radius: 10px;
+    color: white;
+  }
+ 
+  .textModal {
+    background-color: black;
+    color: orange;
+    padding: 5px;
+    width: 97%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .modalButton {
+    border: none;
+    border: 1px solid black;
+    text-align: center;
+    color: black;
+    background-color: orange;
+    border-radius: 5px 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: .8s;
+  }
+  .modalButton:hover {
+    color: orange;
+    background-color: black;
+  }
+  .modalBoot {
+    width: 250px;
+    height: 130px;
+    object-fit:cover;
+    object-position: top;
+  }
+  .x {
+    position: absolute;
+    padding: 10px 15px;
+    border-radius: 15px 10px;
+    right: -15px;
+    top: -15px;
+    background-color: black;
+    color: orange;
+    cursor: pointer;
+  }
+  .boxSelect {
+    text-align: center;
+    position: relative;
+    height: 20px;
+    width: 100%;
+  }
+  .textReset {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: block;
+    color: black;
+    cursor: pointer;
+    margin: 2px;
+  }
+  .space {
+    position: absolute;
+    right: 80px;
+  }
+ 
+.paragraph {
+  color: white;
+  font-size: 14px;
+}

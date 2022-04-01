@@ -1,0 +1,183 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+.tiket {
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    background-image: url(../public/tiket.png);
+    width: auto;
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 80px;
+    height: 80px;
+    width: 80px;
+    font-size: 12px;
+    display: flex;
+    padding: 13px;
+    align-items: center;
+    z-index: 100;
+    color: red;
+  }
+
+  .tiketTwo {
+    position: absolute;
+    left: -10px;
+    top: 217px;
+    background-image: url(../public/tiket.png);
+    width: auto;
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 80px;
+    height: 80px;
+    width: 80px;
+    font-size: 12px;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    z-index: 100000;
+    color: red;
+  }
+  
+.box {
+    background-color: black;
+    border-radius: 10px;
+}
+.title {
+    color: orange;
+    padding: 0;
+    margin: 0;
+}
+.subtitle {
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+.list {
+    list-style: none;
+    padding: 0 25px;
+    margin-top: 20px;
+}
+.li {
+    text-align: left;
+}
+.right {
+  padding-left: 8px;
+}
+.form {
+    width: 100%;
+    text-align: center;
+
+}
+.input {
+    border: none;
+    border-bottom: 1px solid black;
+    width: 90%;
+    background-color: white;
+    margin-top: 10px;
+    text-align: center;
+    height: 18px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+  }
+ 
+  .code {
+    display: inline-block;
+    font-size: 14px;
+    width: 90%;
+    background-color: #003450;
+    color: orange;
+    margin-top: 10px;
+    text-align: center;
+    height: 18px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+  }
+
+
+.spaceDiv {
+    margin-top: 10px;
+}
+.enlace {
+ 
+    color: #003450;
+    font-size: 10px;
+    text-decoration: underline;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+.modalContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -1000px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.616);
+    z-index: 100000000;
+  }
+  .contBlue {
+    background-color: aliceblue;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 270px;
+    border-radius: 10px;
+    color: white;
+  }
+  .true {
+    top: 0;
+  }
+  .perfil {
+    width: 250px;
+    height: 130px;
+    object-fit:cover;
+    object-position: top;
+    z-index: 100000000000000000000000;
+  }
+  .x {
+    position: absolute;
+    padding: 10px 15px;
+    border-radius: 15px 10px;
+    right: -15px;
+    top: -15px;
+    background-color: black;
+    color: orange;
+    cursor: pointer;
+  }
+  .textModal {
+    background-color: black;
+    color: orange;
+    padding: 5px;
+    width: 97%;
+    margin-top: 20px;
+  }
+  .span {
+    color: aliceblue;
+  }

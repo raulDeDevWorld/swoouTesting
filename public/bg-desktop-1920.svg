@@ -1,0 +1,29 @@
+<svg width="1920" height="1024" viewBox="0 0 1920 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1920 0L614.846 0C614.846 0 711.791 73.9269 763.543 154.96C809.26 226.545 809.172 337.736 778.394 409.281C738.056 503.051 619.804 543.329 668.798 662.241C717.792 781.154 720.042 840.514 648.392 868.826C476.934 936.579 294.209 659.427 161.686 541.828C92.1819 480.152 -0.0666514 442.95 -0.0666514 442.95L-0.0666785 1024L1920 1024V0Z" fill="url(#paint0_linear)"/>
+<ellipse cx="1622" cy="512" rx="662" ry="694" transform="rotate(-180 1622 512)" fill="url(#paint1_linear)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="401.368" y1="0.863964" x2="1182.96" y2="1186.45" gradientUnits="userSpaceOnUse">
+<stop stop-color="#003450"/>
+<stop offset="0.536458" stop-color="#4393BE"/>
+<stop offset="0.822917" stop-color="#B1D9F0"/>
+<stop offset="1" stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x1="2170.5" y1="-13.5001" x2="1321.7" y2="1012.58" gradientUnits="userSpaceOnUse">
+<stop offset="0.0233614" stop-color="#F0F8FC"/>
+<stop offset="0.0786808" stop-color="#B0D4E7"/>
+<stop offset="0.137758" stop-color="#8FC1DC"/>
+<stop offset="0.203968" stop-color="#72B1D3"/>
+<stop offset="0.290102" stop-color="#5E9BBC"/>
+<stop offset="0.467565" stop-color="#417B9B"/>
+<stop offset="0.670509" stop-color="#205875"/>
+<stop offset="0.888467" stop-color="#063A57"/>
+<stop offset="1" stop-color="#003450"/>
+</linearGradient>
+<clipPath id="clip0">
+<rect width="1920" height="1024" fill="white"/>
+</clipPath>
+</defs>
+</svg>

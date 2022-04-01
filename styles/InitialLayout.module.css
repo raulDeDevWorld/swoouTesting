@@ -1,0 +1,57 @@
+.container {
+    position: absolute;
+    background-image: url(../public/bg-android-vertical.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right top;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.logo { 
+    position: absolute;
+    width: 75vw;
+    min-width: 180px;
+    max-width: 300px;
+    top: 13vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 100;
+}
+@media (orientation: landscape) { 
+    .container {
+        background-image: url(../public/bg-android-horizontal.svg);
+        background-position: center;
+    }
+    .logo {
+        left: 5vw;
+        right: auto;
+        margin: 0;
+        top: 13vh;
+        width: 30vw; 
+    }
+}
+@media (min-width: 1920px){
+    .logo { 
+        width: 75vw;
+        max-width: 400px;
+        left: 5vw;
+        right: auto;
+        margin: 0;
+        z-index: 100;
+    }
+}
+/* @media (min-width: 1024px){
+    .container {
+        background-image: url(../public/bg-desktop-1440.svg);
+        background-position: top center;
+    }
+    .logo {
+        left: 5vw;
+        right: auto;
+        margin: 0;
+        top: 13vh;
+        width: 30vw; 
+    }
+} */

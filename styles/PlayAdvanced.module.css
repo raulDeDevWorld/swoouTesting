@@ -1,0 +1,21 @@
+.boxMain {
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #1eff00;
+    width: 90%;
+    max-width: 500px;
+    height: 60%;
+    min-height: 70px;
+    max-height: 90px;
+    min-height: 90px;
+    border-radius: 10px;
+    margin-top: 3px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: Center;
+}
+
+.exponente {
+font-size: 12px;
+padding-bottom: 15px;
+}

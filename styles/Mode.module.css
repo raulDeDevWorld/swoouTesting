@@ -1,0 +1,64 @@
+.success {
+    position: fixed;
+    width: 100%;
+    min-height: 21px;
+    /* background-color: #1eff00; */
+    background-color: black;
+    color: #1eff00;
+    display: inline-block;
+    bottom: 75px;
+
+    text-align: center;
+    transition-duration: .5s;
+    animation-name: animationGreen;
+    animation-duration: 4s;
+    animation-delay: 0;
+    z-index: 1000000000000;
+    padding: 1px 0;
+
+}
+.error {
+    position: fixed;
+    width: 100%;
+    min-height: 21px;
+    /* background-color: red; */
+    background-color: black;
+    color: red;
+    display: inline-block;
+    bottom: 75px;
+
+    text-align: center;
+
+    animation-name: animationRed;
+    animation-duration: 4s;
+    animation-delay: 0;
+    z-index: 1000000000000;
+    padding: 1px 0;
+    
+   
+}
+@keyframes animationRed {
+    0% {background-color: transparent; color: transparent}
+    20% {background-color: black; color: red}
+    80% {background-color: black; color: red}
+    100% {background-color: transparent; color: transparent}
+  }
+  @keyframes animationGreen {
+    0% {background-color: transparent; color: transparent}
+    20% {background-color: black; color: #1eff00;}
+    80% {background-color: black; color: #1eff00;}
+    100% {background-color: transparent; color: transparent}
+  }
+
+@media (max-height: 590px) { 
+    .success {
+        position: absolute;
+        margin-top: 500px;
+        bottom: auto;
+    }
+    .error {
+        position: absolute;
+        margin-top: 500px;
+        bottom: auto;
+    }
+}

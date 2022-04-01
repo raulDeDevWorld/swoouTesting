@@ -1,0 +1,19 @@
+.title {
+    font-size: 18px;
+    margin: 5px 0;
+    background-color: red;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.subtitle {
+    font-size: 18px;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.paragraph {
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 1px;
+}

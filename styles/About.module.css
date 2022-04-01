@@ -1,0 +1,31 @@
+.subtitle {
+    color: orange;
+}
+.paragraph {
+    text-align: center;
+    line-height: 25px;
+}
+.policy {
+    color: blue;
+    text-decoration: underline;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    
+    padding: 0;
+    height: 90%;
+    width: 280px;
+  
+    overflow: hidden scroll;
+}
+.logo {
+    height: 80px;
+ 
+}

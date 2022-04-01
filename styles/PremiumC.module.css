@@ -1,0 +1,47 @@
+
+
+.box {
+    background-color: black;
+    border-radius: 5px;
+    width: 80%;
+    padding: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.title {
+    color: orange;
+    padding: 0;
+    margin: 0;
+}
+.cont {
+    position: relative;
+    height: 25px;
+}
+.subtitle {
+  position: absolute;
+  background-color: black;
+  color: white;
+  left: 0;
+  right: 0;
+  margin: auto;
+  animation-name: myAnimation;
+  animation-duration: 6s;
+  animation-iteration-count: infinite; 
+  animation-direction: alternate;
+
+}
+ .subtitleTwo {
+  position: absolute;
+  background-color: black;
+  color: white;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 50;
+}
+@keyframes myAnimation {
+	0% {z-index: 1;}
+        33% {z-index: 60;}
+        67% {z-index: 1;}
+        100% {z-index: 60;} 
+}

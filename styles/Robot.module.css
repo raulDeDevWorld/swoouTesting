@@ -1,0 +1,180 @@
+.main {
+    background-image: url(../public/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left top;
+    min-height: 100vh;
+}
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+}
+.perfil {
+    width: 250px;
+    height: 130px;
+    object-fit:cover;
+    object-position: top;
+}
+.greeting {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+
+.box {
+    background-color: #4393beab;
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.button {
+    cursor: pointer;
+    font-size: 12px;
+    color: rgb(0, 255, 0);
+    background-color: black;
+    width: 130px;
+    margin: 2px;
+    padding: 5px 1px; 
+    border-radius: 5px;        
+
+    transition-duration: .5s;
+}
+.right {
+    background-image: url(../public/right.svg);
+    background-repeat: no-repeat;
+    background-position: 110px 2px;
+    background-size: 13px;
+}
+.input {
+    width: 45%;
+    border: none;
+    border: 1px solid rgb(0, 0, 0);
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding: 5px 1px; 
+    margin: 2px;
+  }
+.boxMain {
+    position: relative;
+    background-color: aliceblue;
+    color: black;
+    width: 90%;
+    max-width: 90%;
+    min-height: 200px;
+    border-radius: 10px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+
+
+}
+.p {
+    display: block;
+    font-size: 20px;
+    text-align: right;
+    margin-right: 10px;
+    
+}
+.hide {
+    visibility: hidden;
+}
+.hideTrick {
+    color: aliceblue;
+}
+
+.border{
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.borderTop{
+    border-top: 2px solid red;
+}
+
+.buttonGreen {
+    background-color: rgb(0, 255, 0);
+    color: white;
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 25px;
+}
+
+.green {
+    background-color: greenyellow;
+}
+.red {
+    color: red;
+}
+
+.divisionBox {
+    padding: 15px;
+    font-size: 20px;
+}
+.display {
+    display: flex;
+    justify-content: center;
+}
+.dividendo {
+    height: auto;
+    padding-right: 10px;
+    
+}
+.span {
+    display: block;
+    padding-left: 10px;
+    border-top: 1px solid red;
+}
+.residuo {
+    display: block;
+    text-align: right;
+}
+.vertical {
+    border-right: 1px solid red;
+}
+.horizontal {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid red;
+    display: block;
+    text-align: center;
+    min-width: 50px;
+}
+.hideDiv {
+    visibility: hidden;
+    color: red;
+}
+
+.cifDiv {
+    color: red;
+    padding-top: 1px;
+    border-top: 1px solid red;
+    border-radius: 8px;
+}
+.cifDivTwo::before {
+    content: "'";
+    position: absolute;
+    margin-left: 5px;
+    top: 5px;
+    color: red;
+  }
+
+.specialZero {
+    display: block;
+    text-align: right;
+}

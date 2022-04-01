@@ -1,0 +1,113 @@
+.main {
+    background-image: url(../public/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left top;   
+     min-height: 100vh;
+}
+.perfil {
+    margin: 10px;
+    margin-top: 40px;
+    height: 90px;
+    width: 90px;
+    border-radius: 50px;
+  }
+.container {
+    height: 100vh;
+    min-height: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    font-size: 25px;
+    max-height: 700px;
+}
+.boxMain {
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #1eff00;
+    width: 90%;
+    max-width: 500px;
+    height: 60%;
+    min-height: 70px;
+    max-height: 90px;
+    min-height: 90px;
+    border-radius: 10px;
+    margin-top: 3px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.box {
+    background-color: #3cceff;
+    border: 1px solid #8de2ff;
+    width: 90%;
+    max-width: 500px;
+    height: 50px;
+    border-radius: 10px;
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.button {
+    background-color: red;
+    color: white;
+    width: 90%;
+    max-width: 500px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 25px;
+}
+.red {
+    background-color: red;
+}
+.green {
+    background-color: rgb(0, 255, 0);
+}
+.textCont {
+    position: relative;
+    background-color: transparent;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 5px; 
+}
+.white {
+    text-align: left;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+
+
+  
+}
+.contRE {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    display: inline-block;
+}
+.e {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: red;
+    font-size: 25px;
+    text-align: center;
+    min-width: 70px;
+    padding: 5px;
+    border-radius: 10px;
+}
+.r {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 255, 0);
+    font-size: 25px;
+    text-align: center;
+    min-width: 70px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
