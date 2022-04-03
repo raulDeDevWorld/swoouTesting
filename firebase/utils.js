@@ -15,105 +15,533 @@ const premiumCode = firebase.database().ref('/premiumCode');
 const dataTeachers = firebase.database().ref('/teachers');
 const ids = firebase.database().ref('/ids')
 
- function getData(user, setUserData){
-       console.log('hello world')
 
+
+function onAuth (setUserProfile, setUserData) { 
+      return auth.onAuthStateChanged(function(user) {
+      if (user) {
+            setUserProfile(user)
+            getData(user, setUserData)
+      } else {
+            setUserProfile(user)
+      }
+    })
+}
+  
+
+// ---------------------------Login, Sign Up and Sign In------------------------------------
+
+function withFacebook () {
+      var sUsrAg = navigator.userAgent;
+
+      if (( sUsrAg.indexOf("FBAN") > -1) || (sUsrAg.indexOf("FBAV") > -1 )) {
+            alert("math.swoou.com utiliza tecnologías modernas que FACEBOOK NAVEGATOR no reconoce aun, por favor PRESIONE LOS TRES PUNTOS DEL LATERAL DERECHO Y ELIJA LA OPCIÓN ABRIR EN EL NAVEGADOR o intente directamente desde otro navegador o establezca otro navegador como prederterminado, gracias por su comprensión.");
+            return
+      }
+      auth.signInWithPopup(providerFacebook).then(function(result) {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+}
+
+function withGoogle () {
+      var sUsrAg = navigator.userAgent;
+
+      if (( sUsrAg.indexOf("FBAN") > -1) || (sUsrAg.indexOf("FBAV") > -1 )) {
+            alert("math.swoou.com utiliza tecnologías modernas que FACEBOOK NAVEGATOR no reconoce aun, por favor PRESIONE LOS TRES PUNTOS DEL LATERAL DERECHO Y ELIJA LA OPCIÓN ABRIR EN EL NAVEGADOR o intente directamente desde otro navegador o establezca otro navegador como prederterminado, gracias por su comprensión.");
+            return
+      }
+      auth.signInWithPopup(providerGoogle).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+}
+
+function handleSignOut() {
+      auth.signOut().then(function() {
+            // Sign-out successful.
+      }).catch(function(error) {
+            // An error happened.
+      });     
+}
+
+//----------------------------Data Register------------------------------
+
+function dataUser (aName, grade, school, avatar, cell, profesor, premium) {
+      const name = auth.currentUser.displayName
+      const uid = auth.currentUser.uid
+      const userDB = {
+            name,
+            aName,
+            grade,
+            school,
+            avatar,
+            progress: 0,
+            errors: 0,
+            premium,
+            cell,
+            profesor,
+            id: null,
+            play: 0,
+            robot: 0,
+            date: Date(),
+            s: 0,
+            r: 0,
+            m: 0,
+            d: 0,
+            es: 0,
+            er: 0,
+            em: 0,
+            ed: 0,
+            uid,
+            sumaConfig: 99,
+            restaConfig: 99,
+            multiplicacionConfig: 10,
+            divisionConfig: 10,
+      }
+      createIndexedDB(userDB)
+      return db.ref(`users/${uid}`).set(userDB)
+      
+}
+function setDataTeachers (aName, grade, school, avatar, cell, profesor, premium) {
+      const name = auth.currentUser.displayName
+      const id = `${aName.split(' ')[0].toLowerCase()}${cell}`
+      const uid = auth.currentUser.uid
+      const userDB = {
+            name,
+            aName,
+            grade,
+            school,
+            avatar,
+            progress: 0,
+            errors: 0,
+            premium,
+            cell,
+            profesor,
+            id,
+            date: Date(),
+            s: 0,
+            r: 0,
+            m: 0,
+            d: 0,
+            es: 0,
+            er: 0,
+            em: 0,
+            ed: 0,
+            reset: true,
+            uid,
+            sumaConfig: 99,
+            restaConfig: 99,
+            multiplicacionConfig: 10,
+            divisionConfig: 10,
+            students: {
+                        '5zgXJdzyyxYTUvBbHMaJNndA65m1':'5zgXJdzyyxYTUvBbHMaJNndA65m1',
+                        'FnPD0SoqAqa7HZbaXUhVqNy0aTh2':'FnPD0SoqAqa7HZbaXUhVqNy0aTh2'
+            }
+      }
+      createIndexedDB(userDB)
+      db.ref(`ids/${id}`).set({uid,})
+      return db.ref(`teachers/${uid}`).set(userDB)
+      
+}
+
+
+//----------------------------------Data Manage---------------------------------
+
+ function getData(user, setUserData){
+       const indexedDB = window.indexedDB
        if (navigator.onLine) {
-            const indexedDB = window.indexedDB
             data.on('value',  function(snapshot){ 
-                  console.log('hello data') 
                   var b = snapshot.child(user.uid).exists();                
                   if (b === true){
                         let obj = snapshot.val() 
                         setUserData(obj[user.uid])
-                      
                         if(indexedDB){
-                              console.log('hello true')
-                              let swoouDB
-                              const request = indexedDB.open('swoouData', 1)
-                              
-                              request.onsuccess = () => {
-                                    swoouDB = request.result
-                                    console.log(swoouDB)
-                                    addData()
-                              }
-      
-                              request.onupgradeneeded = (e) => {
-                                    swoouDB = e.target.result
-                                    const objectStore = swoouDB.createObjectStore('swoouData', {
-                                          keyPath: 'uid'
-                                    })     
-                              }
-      
-                              request.onerror = (err) => {
-                                    console.log(err)
-                              }
-                              const addData = () => {
-                                    const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
-                                    const objectStore = transaction.objectStore('swoouData')
-                                    const request = objectStore.add(obj[user.uid])
-                              }
+                           dataCompare(obj[user.uid])
                         }
-                  } else {
+                  }else{
                         dataTeachers.on('value', function(snapshot){  
-                              var b = snapshot.child(user.uid).exists();
-                              console.log('hello false')                
+                              var b = snapshot.child(user.uid).exists();               
                               if (b === true){
                                     let obj = snapshot.val() 
                                     setUserData(obj[user.uid])
+                                    if(indexedDB){
+                                          dataCompare(obj[user.uid])
+                                    }
                               } else {
                                     setUserData(null)
                               }
                         })
-                  } 
-      
-                  
+                  }    
             })
           } else {
-            const indexedDB = window.indexedDB
-         
             if(indexedDB){
             let swoouDB
             const request = indexedDB.open('swoouData', 1)
-
-
             request.onsuccess = () => {
                   swoouDB = request.result
                   console.log(swoouDB)
                   readData()
-                  
             }
-            // request.onupgradeneeded = (e) => {
-            //       swoouDB = e.target.result
-            //       const objectStore = swoouDB.createObjectStore('swoouData', {
-            //             keyPath: 'uid'
-            //       })     
-            // }
-
             const readData = () => {
-                  
                   const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
                   const objectStore = transaction.objectStore('swoouData')
-                  const request = objectStore.openCursor()
-
-                  request.onsuccess = (e) => {
-                        const cursor = e.target.result
-                        if (cursor) {
-                              setUserData(cursor.value)
-                              cursor.continue()
-                        }else{
-                              console.log('no more data')
-                        }}
+                  const request = objectStore.get(auth.currentUser.uid)
                   
-            
+                  request.onsuccess = () => {
+                        request ? setUserData(request.result) : console.log('no data')
+                  }
             }
           }}
 
+}
+function createIndexedDB(userDB) {
+      const indexedDB = window.indexedDB
+      if(indexedDB){
+            let swoouDB
+            const request = indexedDB.open('swoouData', 1)
+             request.onsuccess =  (e)  => {
+                  swoouDB =  e.target.result 
+                  addData()                
+            }
+            request.onupgradeneeded = (e) => {
+                  console.log(e.target.result)
+                  swoouDB = e.target.result
+                  const objectStore = swoouDB.createObjectStore('swoouData', {
+                        keyPath: 'uid'
+                  })     
+            }       
+            request.onerror = (err) => {
+                  console.log(err)
+            }
+            const addData = () => {
+                  const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+                  const objectStore = transaction.objectStore('swoouData')
+                  const request = objectStore.add(userDB)
+            }
+      }
+}
+
+function dataCompare(firebaseDB) {
+      const indexedDB = window.indexedDB
+      if(indexedDB){
+      let swoouDB
+      const request = indexedDB.open('swoouData', 1)
+
+      request.onsuccess = (e) => {
+            swoouDB = e.target.result
+            transactionDataCompare ()
+      }
+      console.log(swoouDB)
+      function transactionDataCompare () {
+            const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+            const objectStore = transaction.objectStore('swoouData')
+            const requestObjectStore = objectStore.get(auth.currentUser.uid)
+            requestObjectStore.onsuccess = () => {
+                  const dateIDB = requestObjectStore.result.date
+                  if(dateIDB > firebaseDB.date){   
+                  db.ref(`users/${auth.currentUser.uid}`).update({...firebaseDB, ...requestObjectStore.result})
+                  }else{
+                        const objectStoreUpdate = objectStore.put(firebaseDB)
+                        objectStoreUpdate.onsuccess = () => {
+                             
+                        }
+                        objectStoreUpdate.onerror = (e) => {
+                              console.log(e)
+                        }
+                  }  
+            }
+      }
+      }
+}
+
+
+//----------------------------Teacher Data Progress---------------------------
+
+
+function getProgress (setStudentsProgress, uid ){
+      dataTeachers.on('value', function(snapshot){  
+            var b = snapshot.child(`${uid}/students`).exists(); 
+            if (b === true){
+                  const array = []
+                  snapshot.child(`${uid}/students`).forEach(function(childSnapshot) { 
+                        db.ref(`/users/${childSnapshot.key}`).once('value', function(userSnapshot){
+                              const valName = userSnapshot.child('aName').val()
+                              const s = userSnapshot.child('s').val()
+                              const r = userSnapshot.child('r').val()
+                              const m = userSnapshot.child('m').val()
+                              const d = userSnapshot.child('d').val()
+                              const es = userSnapshot.child('es').val()
+                              const er = userSnapshot.child('er').val()
+                              const em = userSnapshot.child('em').val()
+                              const ed = userSnapshot.child('ed').val()
+                              const nw = userSnapshot.child('nw').val()
+                              const userUid = userSnapshot.child('uid').val()
+                              const obj = {
+                                    name: valName,
+                                    s,
+                                    r,
+                                    m,
+                                    d,
+                                    es,
+                                    er,
+                                    em,
+                                    ed,
+                                    nw,
+                                    userUid
+                              }
+                             array.push(obj)
+                          }) 
+                   })
+                   console.log(array)
+                   setStudentsProgress(array)
+              
+            } else {
+                   setStudentsProgress(null)
+            }
+      })
+}
+  
 
 
 
+//------------------------Student Data Progress---------------------------------
+
+
+function setProgress (n, account, op, setUserData) {
+      console.log('click p')
+      const us = account == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      if (navigator.onLine) {
+            switch (op){
+                  case 's':
+                        db.ref(`${us}/${uid}`).update({s: n, date: Date()})
+                        break;
+                  case 'r':
+                        db.ref(`${us}/${uid}`).update({r: n, date: Date()})
+                        break;
+                  case 'm':
+                        db.ref(`${us}/${uid}`).update({m: n, date: Date()})
+                        break;
+                  case 'd':
+                        db.ref(`${us}/${uid}`).update({d: n, date: Date()})
+                  default:
+                        break;
+
+            }
+      }else{
+            let swoouDB
+            const request = indexedDB.open('swoouData', 1)
+      
+            request.onsuccess = () => {
+                  swoouDB = request.result
+                  transactionProgressUpdate ()
+            }
+            function transactionProgressUpdate () {
+                  const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+                  const objectStore = transaction.objectStore('swoouData')
+                  const requestObjectStore = objectStore.get(auth.currentUser.uid)
+                  requestObjectStore.onsuccess = () => {
+
+                        switch (op){
+                  
+                              case 's':
+                                    var newDB = {s: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'r':
+                                    var newDB = {r: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'm':
+                                    var newDB = {m: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'd':
+                                    var newDB = {d: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                              default:
+                                    break;
+                        }
+                  }
+            }
+            
+      }
+}
+
+function setErrors (n, account, op, setUserData) {
+      const us = account == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      if (navigator.onLine) {
+            switch (op){
+                  case 's':
+                        db.ref(`${us}/${uid}`).update({es: n, date: Date()})
+                        break;
+                  case 'r':
+                        db.ref(`${us}/${uid}`).update({er: n, date: Date()})
+                        break;
+                  case 'm':
+                        db.ref(`${us}/${uid}`).update({em: n, date: Date()})
+                        break;
+                  case 'd':
+                        db.ref(`${us}/${uid}`).update({ed: n, date: Date()})
+                  default:
+                        break;
+
+            }
+      } else {
+            let swoouDB
+            const request = indexedDB.open('swoouData', 1)
+      
+            request.onsuccess = () => {
+                  swoouDB = request.result
+                  transactionProgressUpdate ()
+            }
+            function transactionProgressUpdate () {
+                  const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+                  const objectStore = transaction.objectStore('swoouData')
+                  const requestObjectStore = objectStore.get(auth.currentUser.uid)
+                  requestObjectStore.onsuccess = () => {
+
+                        switch (op){
+                  
+                              case 's':
+                                    var newDB = {es: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'r':
+                                    var newDB = {er: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'm':
+                                    var newDB = {em: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                                    break;
+                              case 'd':
+                                    var newDB = {ed: n, date: Date()}
+                                    objectStore.put({...requestObjectStore.result, ...newDB})
+                                    setUserData({...requestObjectStore.result, ...newDB}) 
+                              default:
+                                    break;
+                        }
+                  }
+            }
+
+
+      }
+}
+
+
+
+//----------------------------Updates Config------------------------------------
+
+
+
+function avatarUpdate (n, account) {
+      const us = account == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      db.ref(`${us}/${uid}`).update({avatar: n,})
+}
+function progressReset (account, s, r, m, d, msg, acc) {
+      const us = account == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      if (us == 'teachers') { 
+            db.ref(`${us}/${uid}/students`).once('value', function(snapshot){
+                  snapshot.forEach(function(childSnapshot) {
+                        if(s == true){ db.ref(`users/${childSnapshot.key}`).update({s: 0, es: 0,}) }
+                        if(r == true){ db.ref(`users/${childSnapshot.key}`).update({r: 0, er: 0,}) }
+                        if(m == true){ db.ref(`users/${childSnapshot.key}`).update({m: 0, em: 0,}) }
+                        if(d == true){ db.ref(`users/${childSnapshot.key}`).update({d: 0, ed: 0,}) }
+                  });
+            });
+        
+      }
+      if (us == 'users') {
+            if(s == true){ db.ref(`${us}/${uid}`).update({s: 0, es: 0,}) }
+            if(r == true){ db.ref(`${us}/${uid}`).update({r: 0, er: 0,}) }
+            if(m == true){ db.ref(`${us}/${uid}`).update({m: 0, em: 0,}) }
+            if(d == true){ db.ref(`${us}/${uid}`).update({d: 0, ed: 0,}) }
+      }
+      if (us == 'teacher' && msg == 'unity') {
+            if(s == true){ db.ref(`users/${acc}`).update({s: 0, es: 0,}) }
+            if(r == true){ db.ref(`users/${acc}`).update({r: 0, er: 0,}) }
+            if(m == true){ db.ref(`users/${acc}`).update({m: 0, em: 0,}) }
+            if(d == true){ db.ref(`users/${acc}`).update({d: 0, ed: 0,}) }
+      }
+     
+}
+
+function userDelete (userUid) {
+    
+      const uid = auth.currentUser.uid
+      db.ref(`${'/teachers'}/${uid}/students/${userUid}`).remove()
+      db.ref(`${'/users'}/${userUid}`).update({id: 'Te ha eliminado'})
 
 }
+
+
+function playDificult (account, dificultObject) {
+      const us = account == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      if (us == 'teachers') { 
+            db.ref(`${us}/${uid}/students`).once('value', function(snapshot){
+                  snapshot.forEach(function(childSnapshot) {
+                  db.ref(`${'/users'}/${childSnapshot.key}`).update(dificultObject)
+                  });
+            });
+            db.ref(`${us}/${uid}`).update(dificultObject)
+
+      }
+      if (us == 'users') { 
+            db.ref(`${us}/${uid}`).update(dificultObject)
+      }
+}
+function progressResetTeacher (mode) {
+      console.log(mode)
+      const uid = auth.currentUser.uid
+      db.ref(`teachers/${uid}`).update({reset : mode})
+}
+
+
+
+
+
+
+//----------------------------Estudent Register Teacher ID------------------------
+
+
+
 function query(id, setTeacherId, userUid, name, setUserSuccess, setAlert ){
       ids.on('value', function(snapshot){  
             var b = snapshot.child(id).exists(); 
@@ -187,6 +615,10 @@ function getIds(id, setTeacherId, userUid, name, setUserSuccess, mode){
             }
       })
 }
+
+ 
+
+//------------------------------Premium Config-------------------------------
 function getCode(code, uid, setUserSuccess, account){
       premiumCode.once('value', function(snapshot){  
             var b = snapshot.child(code).exists();                
@@ -210,298 +642,18 @@ function getCode(code, uid, setUserSuccess, account){
 
 
 
-function getProgress (setStudentsProgress, uid ){
-      dataTeachers.on('value', function(snapshot){  
-            var b = snapshot.child(`${uid}/students`).exists(); 
-            if (b === true){
-                  const array = []
-                  snapshot.child(`${uid}/students`).forEach(function(childSnapshot) { 
-                        db.ref(`/users/${childSnapshot.key}`).once('value', function(userSnapshot){
-                              const valName = userSnapshot.child('aName').val()
-                              const s = userSnapshot.child('s').val()
-                              const r = userSnapshot.child('r').val()
-                              const m = userSnapshot.child('m').val()
-                              const d = userSnapshot.child('d').val()
-                              const es = userSnapshot.child('es').val()
-                              const er = userSnapshot.child('er').val()
-                              const em = userSnapshot.child('em').val()
-                              const ed = userSnapshot.child('ed').val()
-                              const nw = userSnapshot.child('nw').val()
-                              const userUid = userSnapshot.child('uid').val()
-                              const obj = {
-                                    name: valName,
-                                    s,
-                                    r,
-                                    m,
-                                    d,
-                                    es,
-                                    er,
-                                    em,
-                                    ed,
-                                    nw,
-                                    userUid
-                              }
-                             array.push(obj)
-                          }) 
-                   })
-                   console.log(array)
-                   setStudentsProgress(array)
-              
-            } else {
-                   setStudentsProgress(null)
-            }
-      })
-}
-function onAuth (setUserProfile, setUserData) { 
-      return auth.onAuthStateChanged(function(user) {
-      if (user) {
-            setUserProfile(user)
-            getData(user, setUserData)
-      } else {
-            setUserProfile(user)
-      }
-    })
-}
-    
-function withFacebook () {
-      var sUsrAg = navigator.userAgent;
-
-      if (( sUsrAg.indexOf("FBAN") > -1) || (sUsrAg.indexOf("FBAV") > -1 )) {
-            alert("math.swoou.com utiliza tecnologías modernas que FACEBOOK NAVEGATOR no reconoce aun, por favor PRESIONE LOS TRES PUNTOS DEL LATERAL DERECHO Y ELIJA LA OPCIÓN ABRIR EN EL NAVEGADOR o intente directamente desde otro navegador o establezca otro navegador como prederterminado, gracias por su comprensión.");
-            return
-      }
-      auth.signInWithPopup(providerFacebook).then(function(result) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
-}
-
-function withGoogle () {
-      var sUsrAg = navigator.userAgent;
-
-      if (( sUsrAg.indexOf("FBAN") > -1) || (sUsrAg.indexOf("FBAV") > -1 )) {
-            alert("math.swoou.com utiliza tecnologías modernas que FACEBOOK NAVEGATOR no reconoce aun, por favor PRESIONE LOS TRES PUNTOS DEL LATERAL DERECHO Y ELIJA LA OPCIÓN ABRIR EN EL NAVEGADOR o intente directamente desde otro navegador o establezca otro navegador como prederterminado, gracias por su comprensión.");
-            return
-      }
-      auth.signInWithPopup(providerGoogle).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
-}
-
-function handleSignOut() {
-      auth.signOut().then(function() {
-            // Sign-out successful.
-      }).catch(function(error) {
-            // An error happened.
-      });     
-}
 
 
-function dataUser (aName, grade, school, avatar, cell, profesor, premium) {
-      const name = auth.currentUser.displayName
-      const uid = auth.currentUser.uid
-      console.log(name, uid)
-      db.ref(`users/${uid}`).set({
-            name,
-            aName,
-            grade,
-            school,
-            avatar,
-            progress: 0,
-            errors: 0,
-            premium,
-            cell,
-            profesor,
-            id: null,
-            play: 0,
-            robot: 0,
-            date: null,
-            s: 0,
-            r: 0,
-            m: 0,
-            d: 0,
-            es: 0,
-            er: 0,
-            em: 0,
-            ed: 0,
-            uid,
-            sumaConfig: 99,
-            restaConfig: 99,
-            multiplicacionConfig: 10,
-            divisionConfig: 10,
-      })
-}
-function setDataTeachers (aName, grade, school, avatar, cell, profesor, premium) {
-      const name = auth.currentUser.displayName
-      const id = `${aName.split(' ')[0].toLowerCase()}${cell}`
-      const uid = auth.currentUser.uid
-      console.log(name, uid)
-      db.ref(`teachers/${uid}`).set({
-            name,
-            aName,
-            grade,
-            school,
-            avatar,
-            progress: 0,
-            errors: 0,
-            premium,
-            cell,
-            profesor,
-            id,
-            s: 0,
-            r: 0,
-            m: 0,
-            d: 0,
-            es: 0,
-            er: 0,
-            em: 0,
-            ed: 0,
-            reset: true,
-            uid,
-            sumaConfig: 99,
-            restaConfig: 99,
-            multiplicacionConfig: 10,
-            divisionConfig: 10,
-            students: {
-                        '5zgXJdzyyxYTUvBbHMaJNndA65m1':'5zgXJdzyyxYTUvBbHMaJNndA65m1',
-                        'FnPD0SoqAqa7HZbaXUhVqNy0aTh2':'FnPD0SoqAqa7HZbaXUhVqNy0aTh2'
-            }
-      })
-      db.ref(`ids/${id}`).set({
-            uid,
-      })
 
-}
-function setProgress (n, account, op) {
-      const us = account == true ? 'teachers' : 'users' 
-      const uid = auth.currentUser.uid
-      switch (op){
-            case 's':
-                  db.ref(`${us}/${uid}`).update({s: n,})
-                  break;
-            case 'r':
-                  db.ref(`${us}/${uid}`).update({r: n,})
-                  break;
-            case 'm':
-                  db.ref(`${us}/${uid}`).update({m: n,})
-                  break;
-            case 'd':
-                  db.ref(`${us}/${uid}`).update({d: n,})
-            default:
-                  break;
 
-      }
-}
-function setErrors (n, account, op) {
-      const us = account == true ? 'teachers' : 'users' 
-      const uid = auth.currentUser.uid
-      switch (op){
-            case 's':
-                  db.ref(`${us}/${uid}`).update({es: n,})
-                  break;
-            case 'r':
-                  db.ref(`${us}/${uid}`).update({er: n,})
-                  break;
-            case 'm':
-                  db.ref(`${us}/${uid}`).update({em: n,})
-                  break;
-            case 'd':
-                  db.ref(`${us}/${uid}`).update({ed: n,})
-            default:
-                  break;
 
-      }
-}
 
-function avatarUpdate (n, account) {
-      const us = account == true ? 'teachers' : 'users' 
-      const uid = auth.currentUser.uid
-      db.ref(`${us}/${uid}`).update({avatar: n,})
-}
-function progressReset (account, s, r, m, d, msg, acc) {
-      const us = account == true ? 'teachers' : 'users' 
-      const uid = auth.currentUser.uid
-      if (us == 'teachers') { 
-            db.ref(`${us}/${uid}/students`).once('value', function(snapshot){
-                  snapshot.forEach(function(childSnapshot) {
-                        if(s == true){ db.ref(`users/${childSnapshot.key}`).update({s: 0, es: 0,}) }
-                        if(r == true){ db.ref(`users/${childSnapshot.key}`).update({r: 0, er: 0,}) }
-                        if(m == true){ db.ref(`users/${childSnapshot.key}`).update({m: 0, em: 0,}) }
-                        if(d == true){ db.ref(`users/${childSnapshot.key}`).update({d: 0, ed: 0,}) }
-                  });
-            });
-        
-      }
-      if (us == 'users') {
-            if(s == true){ db.ref(`${us}/${uid}`).update({s: 0, es: 0,}) }
-            if(r == true){ db.ref(`${us}/${uid}`).update({r: 0, er: 0,}) }
-            if(m == true){ db.ref(`${us}/${uid}`).update({m: 0, em: 0,}) }
-            if(d == true){ db.ref(`${us}/${uid}`).update({d: 0, ed: 0,}) }
-      }
-      if (us == 'teacher' && msg == 'unity') {
-            if(s == true){ db.ref(`users/${acc}`).update({s: 0, es: 0,}) }
-            if(r == true){ db.ref(`users/${acc}`).update({r: 0, er: 0,}) }
-            if(m == true){ db.ref(`users/${acc}`).update({m: 0, em: 0,}) }
-            if(d == true){ db.ref(`users/${acc}`).update({d: 0, ed: 0,}) }
-      }
-     
-}
 
-function userDelete (userUid) {
-    
-      const uid = auth.currentUser.uid
-      db.ref(`${'/teachers'}/${uid}/students/${userUid}`).remove()
-      db.ref(`${'/users'}/${userUid}`).update({id: 'Te ha eliminado'})
 
-}
-function playDificult (account, dificultObject) {
-      const us = account == true ? 'teachers' : 'users' 
-      const uid = auth.currentUser.uid
-      if (us == 'teachers') { 
-            db.ref(`${us}/${uid}/students`).once('value', function(snapshot){
-                  snapshot.forEach(function(childSnapshot) {
-                  db.ref(`${'/users'}/${childSnapshot.key}`).update(dificultObject)
-                  });
-            });
-            db.ref(`${us}/${uid}`).update(dificultObject)
 
-      }
-      if (us == 'users') { 
-            db.ref(`${us}/${uid}`).update(dificultObject)
-      }
-}
+
 
 function newStudent (uid) {
       db.ref(`users/${uid}`).update({nw : false})
-}
-function progressResetTeacher (mode) {
-      console.log(mode)
-      const uid = auth.currentUser.uid
-      db.ref(`teachers/${uid}`).update({reset : mode})
 }
 export { query, progressResetTeacher, newStudent, playDificult, userDelete, auth, onAuth, withFacebook, withGoogle, handleSignOut, dataTeachers, dataUser, setDataTeachers, getIds, getProgress, getCode, avatarUpdate, progressReset, setProgress, setErrors }

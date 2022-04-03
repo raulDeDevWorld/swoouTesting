@@ -12,7 +12,7 @@ import style from '../styles/Play.module.css'
 
 
 function Play () {
-    const { userDB,  setUserSuccess, success } = useUser()
+    const { userDB,  setUserSuccess, success, setUserData } = useUser()
     const [objet, setObjet] = useState(null)
     const [countR, setCountR] = useState(0)
     const [countE, setCountE] = useState(0)
@@ -42,7 +42,7 @@ function Play () {
     }
  
     function select (n) {
-
+        
         if (userDB.premium === false && userDB.s + userDB.es > 30) {
             setUserSuccess(false) 
         return}
@@ -53,9 +53,10 @@ function Play () {
         const o ={
             correct: true, selected: n,
         }
+        console.log(userDB)
         setObjet({...objet, ...o,})
         setTimeout(obj, 1500)
-        n == objet.nFour ? setProgress(s+1, userDB.profesor, 's') : setErrors(e+1, userDB.profesor, 's')
+        n == objet.nFour ? setProgress(s+1, userDB.profesor, 's', setUserData) : setErrors(e+1, userDB.profesor, 's', setUserData)
         n == objet.nFour ? setCountR(countR+1) : setCountE(countE+1)
     }
 

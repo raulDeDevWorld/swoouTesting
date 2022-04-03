@@ -13,7 +13,7 @@ import styleH from '../styles/Home.module.css'
 
 
 function Play () {
-    const { userDB, avatar, setUserSuccess, success } = useUser()
+    const { userDB, avatar, setUserSuccess, success, setUserData } = useUser()
     const [objet, setObjet] = useState(null)
     const [countR, setCountR] = useState(0)
     const [countE, setCountE] = useState(0)
@@ -58,7 +58,7 @@ function Play () {
         }
         setObjet({...objet, ...o,})
         setTimeout(obj, 1500)
-        n == objet.nFour ? setProgress(m+1, userDB.profesor, 'm') : setErrors(e+1, userDB.profesor, 'm')
+        n == objet.nFour ? setProgress(m+1, userDB.profesor, 'm', setUserData) : setErrors(e+1, userDB.profesor, 'm', setUserData)
         n == objet.nFour ? setCountR(countR+1) : setCountE(countE+1)
     }
 

@@ -12,7 +12,7 @@ import style from '../styles/Play.module.css'
 
 
 function Division () {
-    const { userDB,  setUserSuccess, success } = useUser()
+    const { userDB,  setUserSuccess, success, setUserData } = useUser()
     const [objet, setObjet] = useState(null)
     const [countR, setCountR] = useState(0)
     const [countE, setCountE] = useState(0)
@@ -52,7 +52,7 @@ function Division () {
         }
         setObjet({...objet, ...o,})
         setTimeout(obj, 1500)
-        n == objet.nFour ? setProgress(d+1, userDB.profesor, 'd') : setErrors(e+1, userDB.profesor, 'd')
+        n == objet.nFour ? setProgress(d+1, userDB.profesor, 'd', setUserData) : setErrors(e+1, userDB.profesor, 'd', setUserData)
         n == objet.nFour ? setCountR(countR+1) : setCountE(countE+1)
     }
 

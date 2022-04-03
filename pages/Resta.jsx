@@ -12,7 +12,7 @@ import style from '../styles/Play.module.css'
 
 
 function Play () {
-    const { userDB,  setUserSuccess, success } = useUser()
+    const { userDB,  setUserSuccess, success, setUserData } = useUser()
     const [objet, setObjet] = useState(null)
     const [countR, setCountR] = useState(0)
     const [countE, setCountE] = useState(0)
@@ -55,7 +55,7 @@ function Play () {
         }
         setObjet({...objet, ...o,})
         setTimeout(obj, 1500)
-        n == objet.nFour ? setProgress(r+1, userDB.profesor, 'r') : setErrors(e+1, userDB.profesor, 'r')
+        n == objet.nFour ? setProgress(r+1, userDB.profesor, 'r', setUserData) : setErrors(e+1, userDB.profesor, 'r', setUserData)
         n == objet.nFour ? setCountR(countR+1) : setCountE(countE+1)
     }
     function nextClick () {
