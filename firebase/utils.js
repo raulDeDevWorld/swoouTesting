@@ -215,9 +215,10 @@ function setDataTeachers (aName, grade, school, avatar, cell, profesor, premium)
                         request ? setUserData(request.result) : console.log('no data')
                   }
             }
-          }}
-
+          }
+      }
 }
+
 function createIndexedDB(userDB) {
       const indexedDB = window.indexedDB
       if(indexedDB){
@@ -245,6 +246,7 @@ function createIndexedDB(userDB) {
       }
 }
 
+
 function dataCompare(firebaseDB) {
       const indexedDB = window.indexedDB
       if(indexedDB){
@@ -255,12 +257,29 @@ function dataCompare(firebaseDB) {
             swoouDB = e.target.result
             transactionDataCompare ()
       }
-      console.log(swoouDB)
+
+      request.onupgradeneeded = (e) => {
+            console.log(e.target.result)
+            swoouDB = e.target.result
+            const objectStore = swoouDB.createObjectStore('swoouData', {
+                  keyPath: 'uid'
+            })     
+      }  
+      const addData = () => {
+            const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+            const objectStore = transaction.objectStore('swoouData')
+            const request = objectStore.add(firebaseDB)
+      }
+
       function transactionDataCompare () {
             const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
             const objectStore = transaction.objectStore('swoouData')
             const requestObjectStore = objectStore.get(auth.currentUser.uid)
             requestObjectStore.onsuccess = () => {
+                  const IDB = requestObjectStore.result
+                  if ( IDB == undefined ) {
+                        addData()
+                  } else {
                   const dateIDB = requestObjectStore.result.date
                   if(dateIDB > firebaseDB.date){   
                   db.ref(`users/${auth.currentUser.uid}`).update({...firebaseDB, ...requestObjectStore.result})
@@ -273,6 +292,7 @@ function dataCompare(firebaseDB) {
                               console.log(e)
                         }
                   }  
+                  }
             }
       }
       }
@@ -326,7 +346,7 @@ function getProgress (setStudentsProgress, uid ){
 //------------------------Student Data Progress---------------------------------
 
 function setProgress (n, account, op, setUserData) {
-      console.log('click p')
+
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
 
