@@ -169,7 +169,6 @@ function setDataTeachers (aName, grade, school, avatar, cell, profesor, premium)
       
 }
 
-
 //----------------------------------Data Manage---------------------------------
 
  function getData(user, setUserData){
@@ -252,7 +251,7 @@ function dataCompare(firebaseDB) {
       let swoouDB
       const request = indexedDB.open('swoouData', 1)
 
-      request.onsuccess = (e) => {
+      request.onsuccess = async (e) => {
             swoouDB = e.target.result
             transactionDataCompare ()
       }
@@ -279,9 +278,7 @@ function dataCompare(firebaseDB) {
       }
 }
 
-
 //----------------------------Teacher Data Progress---------------------------
-
 
 function getProgress (setStudentsProgress, uid ){
       dataTeachers.on('value', function(snapshot){  
@@ -326,34 +323,13 @@ function getProgress (setStudentsProgress, uid ){
       })
 }
   
-
-
-
 //------------------------Student Data Progress---------------------------------
-
 
 function setProgress (n, account, op, setUserData) {
       console.log('click p')
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
-      if (navigator.onLine) {
-            switch (op){
-                  case 's':
-                        db.ref(`${us}/${uid}`).update({s: n, date: Date()})
-                        break;
-                  case 'r':
-                        db.ref(`${us}/${uid}`).update({r: n, date: Date()})
-                        break;
-                  case 'm':
-                        db.ref(`${us}/${uid}`).update({m: n, date: Date()})
-                        break;
-                  case 'd':
-                        db.ref(`${us}/${uid}`).update({d: n, date: Date()})
-                  default:
-                        break;
 
-            }
-      }else{
             let swoouDB
             const request = indexedDB.open('swoouData', 1)
       
@@ -371,21 +347,25 @@ function setProgress (n, account, op, setUserData) {
                   
                               case 's':
                                     var newDB = {s: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'r':
                                     var newDB = {r: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'm':
                                     var newDB = {m: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'd':
                                     var newDB = {d: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                               default:
@@ -393,31 +373,13 @@ function setProgress (n, account, op, setUserData) {
                         }
                   }
             }
-            
-      }
+
 }
 
 function setErrors (n, account, op, setUserData) {
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
-      if (navigator.onLine) {
-            switch (op){
-                  case 's':
-                        db.ref(`${us}/${uid}`).update({es: n, date: Date()})
-                        break;
-                  case 'r':
-                        db.ref(`${us}/${uid}`).update({er: n, date: Date()})
-                        break;
-                  case 'm':
-                        db.ref(`${us}/${uid}`).update({em: n, date: Date()})
-                        break;
-                  case 'd':
-                        db.ref(`${us}/${uid}`).update({ed: n, date: Date()})
-                  default:
-                        break;
 
-            }
-      } else {
             let swoouDB
             const request = indexedDB.open('swoouData', 1)
       
@@ -435,21 +397,25 @@ function setErrors (n, account, op, setUserData) {
                   
                               case 's':
                                     var newDB = {es: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'r':
                                     var newDB = {er: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'm':
                                     var newDB = {em: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                                     break;
                               case 'd':
                                     var newDB = {ed: n, date: Date()}
+                                    navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
                                     objectStore.put({...requestObjectStore.result, ...newDB})
                                     setUserData({...requestObjectStore.result, ...newDB}) 
                               default:
@@ -457,9 +423,6 @@ function setErrors (n, account, op, setUserData) {
                         }
                   }
             }
-
-
-      }
 }
 
 
@@ -469,13 +432,114 @@ function setErrors (n, account, op, setUserData) {
 
 
 function avatarUpdate (n, account) {
+
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
-      db.ref(`${us}/${uid}`).update({avatar: n,})
+
+      let swoouDB
+      const request = indexedDB.open('swoouData', 1)
+
+      request.onsuccess = () => {
+            swoouDB = request.result
+            transactionProgressUpdate ()
+      }
+
+
+      function transactionProgressUpdate () {
+            const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+            const objectStore = transaction.objectStore('swoouData')
+            const requestObjectStore = objectStore.get(auth.currentUser.uid)
+            requestObjectStore.onsuccess = () => {
+                              var newDB = {avatar: n, date: Date()}
+                              navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
+                              objectStore.put({...requestObjectStore.result, ...newDB})
+                              setUserData({...requestObjectStore.result, ...newDB}) 
+            }
+      }
 }
-function progressReset (account, s, r, m, d, msg, acc) {
+
+
+function perfilUpdate (aName, grade, school, cell, profesor, setUserData) {
+      const us = profesor == true ? 'teachers' : 'users' 
+      const uid = auth.currentUser.uid
+      let swoouDB
+      const request = indexedDB.open('swoouData', 1)
+
+      request.onsuccess = () => {
+            swoouDB = request.result
+            transactionProgressUpdate ()
+      }
+
+      function transactionProgressUpdate () {
+            const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+            const objectStore = transaction.objectStore('swoouData')
+            const requestObjectStore = objectStore.get(auth.currentUser.uid)
+            requestObjectStore.onsuccess = () => {
+                  const newDB = {
+                        aName,
+                        grade,
+                        school,
+                        cell,
+                        date: Date(),
+                  }
+                  
+                  navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
+                  objectStore.put({...requestObjectStore.result, ...newDB})
+                  setUserData({...requestObjectStore.result, ...newDB}) 
+            }
+      }      
+}
+
+
+function progressReset (account, s, r, m, d, msg, acc, setUserData) {
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
+
+
+      let swoouDB
+      const request = indexedDB.open('swoouData', 1)
+
+      request.onsuccess = () => {
+            swoouDB = request.result
+            transactionProgressUpdate ()
+      }
+      function transactionProgressUpdate () {
+            const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+            const objectStore = transaction.objectStore('swoouData')
+            const requestObjectStore = objectStore.get(auth.currentUser.uid)
+            requestObjectStore.onsuccess = () => {
+
+                  if (us == 'users') {
+                        const newIDB = {      
+                        }
+                        if(s == true){ 
+                              var newDB = {s: 0, es: 0, date: Date()}
+                              navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
+                              objectStore.put({...requestObjectStore.result, ...newDB})
+                              setUserData({...requestObjectStore.result, ...newDB}) 
+                        }
+                        if(r == true){
+                              var newDB = {r: 0, er: 0, date: Date()}
+                              navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
+                              objectStore.put({...requestObjectStore.result, ...newDB})
+                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              }
+                        if(m == true){
+                              var newDB = {m: 0, em: 0, date: Date()}
+                              navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
+                              objectStore.put({...requestObjectStore.result, ...newDB})
+                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              }
+                        if(d == true){
+                              var newDB = {d: 0, ed: 0, date: Date()}
+                              navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
+                              objectStore.put({...requestObjectStore.result, ...newDB})
+                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              }
+                  }
+            }
+      }
+
       if (us == 'teachers') { 
             db.ref(`${us}/${uid}/students`).once('value', function(snapshot){
                   snapshot.forEach(function(childSnapshot) {
@@ -487,12 +551,7 @@ function progressReset (account, s, r, m, d, msg, acc) {
             });
         
       }
-      if (us == 'users') {
-            if(s == true){ db.ref(`${us}/${uid}`).update({s: 0, es: 0,}) }
-            if(r == true){ db.ref(`${us}/${uid}`).update({r: 0, er: 0,}) }
-            if(m == true){ db.ref(`${us}/${uid}`).update({m: 0, em: 0,}) }
-            if(d == true){ db.ref(`${us}/${uid}`).update({d: 0, ed: 0,}) }
-      }
+
       if (us == 'teacher' && msg == 'unity') {
             if(s == true){ db.ref(`users/${acc}`).update({s: 0, es: 0,}) }
             if(r == true){ db.ref(`users/${acc}`).update({r: 0, er: 0,}) }
@@ -656,4 +715,4 @@ function getCode(code, uid, setUserSuccess, account){
 function newStudent (uid) {
       db.ref(`users/${uid}`).update({nw : false})
 }
-export { query, progressResetTeacher, newStudent, playDificult, userDelete, auth, onAuth, withFacebook, withGoogle, handleSignOut, dataTeachers, dataUser, setDataTeachers, getIds, getProgress, getCode, avatarUpdate, progressReset, setProgress, setErrors }
+export { perfilUpdate, dataCompare, query, progressResetTeacher, newStudent, playDificult, userDelete, auth, onAuth, withFacebook, withGoogle, handleSignOut, dataTeachers, dataUser, setDataTeachers, getIds, getProgress, getCode, avatarUpdate, progressReset, setProgress, setErrors }

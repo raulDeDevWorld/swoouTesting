@@ -7,7 +7,7 @@ import { onAuth } from '../firebase/utils'
 
 export function WithAuth(Component) {
     return () => {
-        const { user, setUserProfile, setUserData } = useUser()
+        const { user, setUserProfile, setUserData, userDB } = useUser()
         const router = useRouter()
 
         useEffect(() => {

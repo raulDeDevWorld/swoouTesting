@@ -2,7 +2,7 @@ import Button from '../components/Button'
 import Subtitle from '../components/Subtitle'
 import PageLayout from '../layouts/PageLayout'
 import { useUser } from '../context/Context.js'
-import { dataUser, setDataTeachers } from '../firebase/utils'
+import { perfilUpdate } from '../firebase/utils'
 import { useRouter } from 'next/router'
 import { WithAuth } from '../HOCs/WithAuth'
 import Paragraph from '../components/Paragraph'
@@ -11,7 +11,7 @@ import Success from '../components/Success'
 import style from '../styles/Config.module.css'
 
 function ConfigPerfil () {
-    const { setUserAvatar, user, userDB, success, setUserSuccess } = useUser()
+    const { setUserAvatar, user, userDB, success, setUserSuccess, setUserData } = useUser()
 
     const router = useRouter()
  
@@ -29,7 +29,7 @@ function ConfigPerfil () {
         const profesor = false
 
         if(aName.length > 2 && grade.length > 2 && school.length >2){
-            dataUser(aName, grade, school, userDB.avatar, cell, profesor, userDB.premium)  
+            perfilUpdate(aName, grade, school, cell, profesor, setUserData )  
             setUserSuccess(true) 
         } else {
             setUserSuccess(false)
@@ -50,7 +50,7 @@ function ConfigPerfil () {
             const cell = e.target.form[3].value
             const profesor = true
             if(aName.length > 2 && grade.length > 4 && school.length > 3 && cell.length > 7){
-                setDataTeachers(aName, grade, school, userDB.avatar, cell, profesor, userDB.premium)  
+                perfilUpdate(aName, grade, school, cell, profesor, setUserData )  
                 setUserSuccess(true)
             } else {
                 setUserSuccess(false)

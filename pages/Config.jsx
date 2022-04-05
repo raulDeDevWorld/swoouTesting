@@ -17,12 +17,13 @@ import router from 'next/router'
 
 
 function Config () {
-    const { setUserAvatar, user, userDB, success, setUserSuccess } = useUser()
+    const { setUserAvatar, user, userDB, success, setUserSuccess, setUserData } = useUser()
     const [mode, setMode] = useState(false)
     const [s, setS] = useState(false)
     const [r, setR] = useState(false)
     const [m, setM] = useState(false)
     const [d, setD] = useState(false)
+
     function avatar () {
         router.push('/ConfigAvatar')
     }
@@ -46,7 +47,7 @@ function Config () {
             setUserSuccess(false)
             return
         }
-        progressReset(userDB.profesor, s, r, m, d)
+        progressReset(userDB.profesor, s, r, m, d, null, null, setUserData)
         if (s == false && r == false && m == false && d == false){
             setUserSuccess(false)
             return
@@ -110,7 +111,7 @@ function Config () {
                     </div>
       
                     <button className={style.modalButton} onClick={modalClick}>Totalmente seguro</button>
-                       </Modal>
+    </Modal>
 
 {success == true && <Success>Correcto</Success>}
 {success == false &&  s == false && r == false && m == false && d == false && userDB.premium && <Error>selecciona una opción</Error>}
