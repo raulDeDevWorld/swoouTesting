@@ -14,7 +14,7 @@ import {rob} from '../utils/robot'
 
 
 function PlayConfig() {
-    const { userDB, avatar, setUserSuccess, success } = useUser()
+    const { userDB, avatar, setUserSuccess, success, setUserData } = useUser()
     const [mode, setMode] = useState('suma')
     const [modeTwo, setModeTwo] = useState('multiplicacion')
     const [controller, setController] = useState(false)
@@ -54,13 +54,13 @@ function PlayConfig() {
     function back () {
         router.back()
     }
-    function save () {
+    function save () {   
         if (userDB.premium === false){
             setUserSuccess(false)
             return
         }
         if ( userDB.id == 'Te ha eliminado'){
-            playDificult(userDB.profesor, {sumaConfig, restaConfig, multiplicacionConfig, divisionConfig })
+            playDificult(userDB.profesor, {sumaConfig, restaConfig, multiplicacionConfig, divisionConfig }, setUserData)
             setUserSuccess(true)
             return 
         }
@@ -68,7 +68,7 @@ function PlayConfig() {
             setUserSuccess(false)
             return
         }
-        playDificult(userDB.profesor, {sumaConfig, restaConfig, multiplicacionConfig, divisionConfig })
+        playDificult(userDB.profesor, {sumaConfig, restaConfig, multiplicacionConfig, divisionConfig }, setUserData)
         setUserSuccess(true)
     }
 

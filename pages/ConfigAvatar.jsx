@@ -14,7 +14,7 @@ import { useState } from 'react'
 
 
 function ConfigAvatar() { 
-    const { setUserAvatar, avatar, user, userDB, success, setUserSuccess } = useUser()
+    const { setUserAvatar, avatar, user, userDB, success, setUserSuccess, setUserData } = useUser()
     const router = useRouter()
 
     function avatarClick(a) {
@@ -27,7 +27,7 @@ function ConfigAvatar() {
         }
         if (avatar !== null) {
             setUserSuccess(true)
-            avatarUpdate(avatar, userDB.profesor)
+            avatarUpdate(avatar, userDB.profesor, setUserData)
         } else {
             setUserSuccess(false)
         } 

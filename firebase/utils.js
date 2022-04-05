@@ -431,7 +431,7 @@ function setErrors (n, account, op, setUserData) {
 
 
 
-function avatarUpdate (n, account) {
+function avatarUpdate (n, account,setUserData) {
 
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
@@ -510,32 +510,39 @@ function progressReset (account, s, r, m, d, msg, acc, setUserData) {
             requestObjectStore.onsuccess = () => {
 
                   if (us == 'users') {
-                        const newIDB = {      
+                        const newIDB = {
+                              s: s == true ? 0 :requestObjectStore.result.s , es: s == true ? 0 :requestObjectStore.result.es ,
+                              r: r == true ? 0 :requestObjectStore.result.r , er: r == true ? 0 :requestObjectStore.result.er ,
+                              m: m == true ? 0 :requestObjectStore.result.m , em: m == true ? 0 :requestObjectStore.result.em ,
+                              d: d == true ? 0 :requestObjectStore.result.d , ed: d == true ? 0 :requestObjectStore.result.ed ,  
+                              date: Date()
                         }
                         if(s == true){ 
                               var newDB = {s: 0, es: 0, date: Date()}
                               navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
-                              objectStore.put({...requestObjectStore.result, ...newDB})
-                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              objectStore.put({...requestObjectStore.result, ...newIDB})
+                         
                         }
                         if(r == true){
                               var newDB = {r: 0, er: 0, date: Date()}
                               navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
-                              objectStore.put({...requestObjectStore.result, ...newDB})
-                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              objectStore.put({...requestObjectStore.result, ...newIDB})
+                     
                               }
                         if(m == true){
                               var newDB = {m: 0, em: 0, date: Date()}
                               navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
-                              objectStore.put({...requestObjectStore.result, ...newDB})
-                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              objectStore.put({...requestObjectStore.result, ...newIDB})
+                     
                               }
                         if(d == true){
                               var newDB = {d: 0, ed: 0, date: Date()}
                               navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) :'' 
-                              objectStore.put({...requestObjectStore.result, ...newDB})
-                              setUserData({...requestObjectStore.result, ...newDB}) 
+                              objectStore.put({...requestObjectStore.result, ...newIDB})
+                              
                               }
+                        setUserData({...requestObjectStore.result, ...newIDB})
+
                   }
             }
       }
@@ -561,6 +568,8 @@ function progressReset (account, s, r, m, d, msg, acc, setUserData) {
      
 }
 
+
+
 function userDelete (userUid) {
     
       const uid = auth.currentUser.uid
@@ -570,7 +579,7 @@ function userDelete (userUid) {
 }
 
 
-function playDificult (account, dificultObject) {
+function playDificult (account, dificultObject, setUserData) {
       const us = account == true ? 'teachers' : 'users' 
       const uid = auth.currentUser.uid
       if (us == 'teachers') { 
@@ -582,10 +591,45 @@ function playDificult (account, dificultObject) {
             db.ref(`${us}/${uid}`).update(dificultObject)
 
       }
+
+
       if (us == 'users') { 
-            db.ref(`${us}/${uid}`).update(dificultObject)
+
+            const us = account == true ? 'teachers' : 'users' 
+            const uid = auth.currentUser.uid
+      
+            let swoouDB
+            const request = indexedDB.open('swoouData', 1)
+      
+            request.onsuccess = () => {
+                  swoouDB = request.result
+                  transactionProgressUpdate ()
+            }
+            
+            function transactionProgressUpdate () {
+                  const transaction = swoouDB.transaction(['swoouData'], 'readwrite')
+                  const objectStore = transaction.objectStore('swoouData')
+                  const requestObjectStore = objectStore.get(auth.currentUser.uid)
+                  requestObjectStore.onsuccess = () => {
+                        const newDB = {
+                              ...dificultObject,
+                              date: Date(),
+                        }
+                        
+                        navigator.onLine ? db.ref(`${us}/${uid}`).update(newDB) : ''
+                        objectStore.put({...requestObjectStore.result, ...newDB})
+                        setUserData({...requestObjectStore.result, ...newDB}) 
+                  }
+            }    
+
+            
       }
 }
+
+
+
+
+
 function progressResetTeacher (mode) {
       console.log(mode)
       const uid = auth.currentUser.uid
