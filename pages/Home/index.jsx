@@ -26,9 +26,12 @@ function Home() {
         avatar !== null ? router.push('/Profesor') : setUserSuccess(false)
     }
     function practica() {
-        userDB.premium !== true ? router.push('https://drive.google.com/drive/folders/1WEakUFwv8boTWwPfwvvXmp1UpfcJ9qpa?usp=sharing'):
-        router.push('https://drive.google.com/file/d/1YbG3O2cjmmw732X-XvPDwUqCkJpX9Ifp/view?usp=sharing')     
-    }
+        if (!navigator.onLine) {
+            setUserSuccess('NoInternet')
+            return
+        }
+        router.push('https://drive.google.com/drive/folders/1WEakUFwv8boTWwPfwvvXmp1UpfcJ9qpa?usp=sharing')
+ }
     function progress() {
         userDB.profesor == true ? router.push('/Progreso'): router.push('/Progress')
     }
@@ -94,6 +97,8 @@ function Home() {
             }
         </PageLayout>
         {success ==false && <Error>Elija un avatar</Error>}
+        {success === 'NoInternet' && <Error>Esta funcion necesita conexion</Error>}
+
         </>
     )
 }

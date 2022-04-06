@@ -30,6 +30,10 @@ function Progress() {
     }
     function nextClick (e) {
         e.preventDefault()
+        if (!navigator.onLine) {
+            setUserSuccess('NoInternet')
+            return
+        }
         const idInput = e.target.form[0].value
         setIdConfig(idInput)
         query(idInput, setTeacherId, user.uid, userDB.aName, setUserSuccess, setAlert)
@@ -95,6 +99,7 @@ function Progress() {
     </Modal>
     {success ==true && <Success>Correcto</Success>}
     {success ==false && <Error>Error</Error>}
+    {success === 'NoInternet' && <Error>Esta funcion necesita conexion</Error>}
     </PageEspecial>
     )
 }

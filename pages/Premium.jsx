@@ -22,6 +22,10 @@ function Premium() {
     }
     function nextClick(e) {
         e.preventDefault()
+        if (!navigator.onLine) {
+            setUserSuccess('NoInternet')
+            return
+        }
         const code = e.target.form[0].value
         getCode(code, user.uid, setUserSuccess, userDB.profesor)
     }
@@ -85,6 +89,8 @@ function Premium() {
             </Modal>
             {success == true && <Success>Correcto</Success>}
             {success == false && <Error>Error</Error>}
+            {success === 'NoInternet' && <Error>Esta funcion necesita conexion</Error>}
+
         </>
     )
 }
