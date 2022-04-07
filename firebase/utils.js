@@ -862,4 +862,9 @@ function getCode(code, uid, setUserSuccess, account){
 function newStudent (uid) {
       db.ref(`users/${uid}`).update({nw : false})
 }
-export { perfilUpdate, dataCompare, query, progressResetTeacher, newStudent, playDificult, userDelete, auth, onAuth, withFacebook, withGoogle, handleSignOut, dataTeachers, dataUser, setDataTeachers, getIds, getProgress, getCode, avatarUpdate, progressReset, setProgress, setErrors }
+
+function setUuidFDB (newUuid) {
+            db.ref(`premiumCode`).update(newUuid)
+}
+
+export { setUuidFDB, perfilUpdate, dataCompare, query, progressResetTeacher, newStudent, playDificult, userDelete, auth, onAuth, withFacebook, withGoogle, handleSignOut, dataTeachers, dataUser, setDataTeachers, getIds, getProgress, getCode, avatarUpdate, progressReset, setProgress, setErrors }

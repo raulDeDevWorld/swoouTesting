@@ -1,0 +1,19 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.buttons {
+    text-align: center;
+}
+.box {
+    padding: 20px;
+    width: 95%;
+    max-width: 300px;
+    background-color: black;
+    color: rgb(85, 210, 255);
+    border-radius: 10px;
+    font-size: 12px;
+}

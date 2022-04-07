@@ -13,6 +13,7 @@ import { useState } from 'react'
 
 
 function Home() { 
+
     const { setUserAvatar, avatar, user, userDB, success, setUserSuccess } = useUser()
     const router = useRouter()
 
